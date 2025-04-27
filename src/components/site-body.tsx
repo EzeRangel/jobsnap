@@ -12,7 +12,12 @@ export default function SiteBody() {
   return (
     <>
       <section className="max-w-[1536px] mx-auto p-6">
-        <AnalyzeForm onSuccess={setResult} />
+        <AnalyzeForm
+          onSuccess={setResult}
+          onClear={() => {
+            setResult("");
+          }}
+        />
       </section>
       <Separator />
       <section className="max-w-[1536px] mx-auto p-6">
