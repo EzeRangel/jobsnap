@@ -26,7 +26,7 @@ export default function AnalyzeForm({ onSuccess, onClear }: Props) {
           <div className="grid w-full gap-1.5">
             <Label htmlFor="cv">Your CV</Label>
             <Textarea
-              placeholder="Paste your current CV here"
+              placeholder="Paste your CV/resume"
               id="cv"
               name="cv"
               required
@@ -38,7 +38,7 @@ export default function AnalyzeForm({ onSuccess, onClear }: Props) {
           <div className="grid w-full gap-1.5">
             <Label htmlFor="description">Job description</Label>
             <Textarea
-              placeholder="Paste the job description you're applying"
+              placeholder="Paste the job description you're interested"
               id="description"
               name="description"
               required
