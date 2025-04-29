@@ -24,7 +24,7 @@ export default function AnalyzeForm({ onSuccess, onClear }: Props) {
   return (
     <form ref={ref} action={execute}>
       <div className="grid grid-cols-12 gap-6">
-        <div className="col-span-6">
+        <div className="col-span-12 md:col-span-6">
           <div className="grid w-full gap-1.5">
             <Label htmlFor="cv">Your CV</Label>
             <Textarea
@@ -37,7 +37,7 @@ export default function AnalyzeForm({ onSuccess, onClear }: Props) {
             />
           </div>
         </div>
-        <div className="col-span-6">
+        <div className="col-span-12 md:col-span-6">
           <div className="grid w-full gap-1.5">
             <Label htmlFor="description">Job description</Label>
             <Textarea
