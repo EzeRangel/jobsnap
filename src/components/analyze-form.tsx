@@ -15,9 +15,11 @@ interface Props {
 
 export default function AnalyzeForm({ onSuccess, onClear }: Props) {
   const ref = useRef<HTMLFormElement>(null);
-  const { execute } = useMutation(analyzeCV, {
+  const { execute, input } = useMutation(analyzeCV, {
     onSuccess,
   });
+
+  const currentCV = input && input instanceof FormData ? input.get("cv") : "";
 
   return (
     <form ref={ref} action={execute}>
@@ -30,6 +32,7 @@ export default function AnalyzeForm({ onSuccess, onClear }: Props) {
               id="cv"
               name="cv"
               required
+              defaultValue={currentCV as string}
               className="h-[250px] resize-none"
             />
           </div>
