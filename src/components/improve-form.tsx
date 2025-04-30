@@ -6,16 +6,16 @@ import Submit from "./forms/submit";
 import { Button } from "./ui/button";
 import { Label } from "./ui/label";
 import { Textarea } from "./ui/textarea";
-import { analyzeCV } from "~/common/actions/analyze-cv";
+import { improveCV } from "~/common/actions/improve-cv";
 
 interface Props {
   onSuccess: (result: string) => void;
   onClear: () => void;
 }
 
-export default function AnalyzeForm({ onSuccess, onClear }: Props) {
+export default function ImproveForm({ onSuccess, onClear }: Props) {
   const ref = useRef<HTMLFormElement>(null);
-  const { execute, input } = useMutation(analyzeCV, {
+  const { execute, input } = useMutation(improveCV, {
     onSuccess,
   });
 
@@ -51,7 +51,7 @@ export default function AnalyzeForm({ onSuccess, onClear }: Props) {
         </div>
         <div className="col-span-12">
           <div className="flex flex-row items-center gap-3">
-            <Submit>Analyze CV</Submit>
+            <Submit>Improve CV</Submit>
             <Button
               type="button"
               variant="secondary"
