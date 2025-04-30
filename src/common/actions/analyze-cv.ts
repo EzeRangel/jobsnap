@@ -18,10 +18,10 @@ export const analyzeCV = actionClient
   .schema(schema)
   .action(async ({ parsedInput }) => {
     const { text } = await generateText({
-      model: groq("llama-3.3-70b-versatile"),
+      model: groq("meta-llama/llama-4-scout-17b-16e-instruct"),
       system: SYSTEM_PROMPT,
       temperature: 0.7,
-      maxTokens: 4096,
+      maxTokens: 2048,
       prompt: `
         #CV
         ${parsedInput.cv}
