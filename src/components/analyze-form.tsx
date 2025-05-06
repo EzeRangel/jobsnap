@@ -26,9 +26,12 @@ export default function AnalyzeForm({ onSuccess, onClear }: Props) {
       <div className="grid grid-cols-12 gap-6">
         <div className="col-span-12 md:col-span-6">
           <div className="grid w-full gap-2">
-            <Label htmlFor="cv">Your CV</Label>
+            <Label htmlFor="cv">Your Resume</Label>
+            <span className="text-sm text-muted-foreground">
+              Include your experience, skills, and education for better analysis
+            </span>
             <Textarea
-              placeholder="Paste your CV/resume"
+              placeholder="Copy and paste your resume or CV text here"
               id="cv"
               name="cv"
               required
@@ -39,9 +42,13 @@ export default function AnalyzeForm({ onSuccess, onClear }: Props) {
         </div>
         <div className="col-span-12 md:col-span-6">
           <div className="grid w-full gap-1.5">
-            <Label htmlFor="description">Job description</Label>
+            <Label htmlFor="description">Job Description</Label>
+            <span className="text-sm text-muted-foreground">
+              The more detailed the description, the more accurate your results
+              will be
+            </span>
             <Textarea
-              placeholder="Paste the job description you're interested"
+              placeholder="Copy and paste the complete job posting here"
               id="description"
               name="description"
               required
@@ -51,7 +58,7 @@ export default function AnalyzeForm({ onSuccess, onClear }: Props) {
         </div>
         <div className="col-span-12">
           <div className="flex flex-row items-center gap-3">
-            <Submit>Analyze CV</Submit>
+            <Submit>Analyze Match</Submit>
             <Button
               type="button"
               variant="secondary"

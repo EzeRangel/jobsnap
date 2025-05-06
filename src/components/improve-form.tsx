@@ -27,6 +27,9 @@ export default function ImproveForm({ onSuccess, onClear }: Props) {
         <div className="col-span-12 md:col-span-6">
           <div className="grid w-full gap-2">
             <Label htmlFor="cv">Your CV</Label>
+            <span className="text-sm text-muted-foreground">
+              Include your experience, skills, and education for better analysis
+            </span>
             <Textarea
               placeholder="Paste your CV/resume"
               id="cv"
@@ -40,6 +43,10 @@ export default function ImproveForm({ onSuccess, onClear }: Props) {
         <div className="col-span-12 md:col-span-6">
           <div className="grid w-full gap-1.5">
             <Label htmlFor="description">Job description</Label>
+            <span className="text-sm text-muted-foreground">
+              The more detailed the description, the more accurate your results
+              will be
+            </span>
             <Textarea
               placeholder="Paste the job description you're interested"
               id="description"
@@ -51,7 +58,7 @@ export default function ImproveForm({ onSuccess, onClear }: Props) {
         </div>
         <div className="col-span-12">
           <div className="flex flex-row items-center gap-3">
-            <Submit>Improve CV</Submit>
+            <Submit>Generate improvements</Submit>
             <Button
               type="button"
               variant="secondary"

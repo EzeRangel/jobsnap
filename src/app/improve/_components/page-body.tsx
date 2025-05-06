@@ -3,17 +3,17 @@
 import { useRef, useState } from "react";
 import remarkGfm from "remark-gfm";
 import Markdown from "react-markdown";
-import AnalyzeForm from "./analyze-form";
-import { Separator } from "./ui/separator";
+import ImproveForm from "~/components/improve-form";
+import { Separator } from "~/components/ui/separator";
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "./ui/card";
+} from "~/components/ui/card";
 
-export default function SiteBody() {
+export default function PageBody() {
   const resultRef = useRef<HTMLDivElement>(null);
   const [result, setResult] = useState("");
 
@@ -22,16 +22,15 @@ export default function SiteBody() {
       <section className="max-w-[1536px] mx-auto p-6">
         <Card>
           <CardHeader>
-            <CardTitle>Match Your Resume to the Job</CardTitle>
+            <CardTitle>Enhance Your Resume</CardTitle>
             <CardDescription>
-              Discover how well your profile matches with the position
-              you&apos;re interested in. Get a detailed analysis that helps you
-              understand your strengths and areas for improvement for this
-              specific role.
+              Refine your resume to better match the job you want, while staying
+              true to your actual skills and experience. Our suggestions help
+              you highlight relevant strengths without embellishment.
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <AnalyzeForm
+            <ImproveForm
               onSuccess={(result) => {
                 setResult(result);
                 resultRef.current?.scrollTo({ behavior: "smooth" });
