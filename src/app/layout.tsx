@@ -35,7 +35,7 @@ export default function RootLayout({
       <body
         className={`${inter.variable} ${jetbrains.variable} ${source.variable} antialiased`}
       >
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+        <ThemeProvider attribute="class" defaultTheme="light">
           <SidebarProvider>
             <AppSidebar variant="inset" />
             <SidebarInset>{children}</SidebarInset>
