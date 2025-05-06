@@ -14,8 +14,9 @@ export default function HelpDialog() {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button size="icon" variant="ghost">
+        <Button variant="ghost" size="sm" className="text-secondary-foreground">
           <CircleHelpIcon />
+          Help
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-2xl">
