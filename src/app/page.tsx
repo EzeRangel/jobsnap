@@ -10,8 +10,8 @@ export const metadata: Metadata = {
 
 export default function Home() {
   return (
-    <main>
-      <SiteHeader />
+    <main className="w-full">
+      <SiteHeader title="Analyze CV" />
       <SiteBody />
     </main>
   );
