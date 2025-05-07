@@ -1,9 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, JetBrains_Mono, Source_Serif_4 } from "next/font/google";
-import "./globals.css";
 import { ThemeProvider } from "~/components/theme-provider";
-import { SidebarInset, SidebarProvider } from "~/components/ui/sidebar";
-import { AppSidebar } from "~/components/app-sidebar";
+import "./globals.css";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -36,10 +34,7 @@ export default function RootLayout({
         className={`${inter.variable} ${jetbrains.variable} ${source.variable} antialiased`}
       >
         <ThemeProvider attribute="class" defaultTheme="light">
-          <SidebarProvider>
-            <AppSidebar variant="inset" />
-            <SidebarInset>{children}</SidebarInset>
-          </SidebarProvider>
+          {children}
         </ThemeProvider>
       </body>
     </html>

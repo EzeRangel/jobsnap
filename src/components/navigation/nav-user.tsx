@@ -3,6 +3,7 @@
 import dynamic from "next/dynamic";
 import HelpDialog from "../help-dialog";
 import { SidebarMenu, SidebarMenuButton, SidebarMenuItem } from "../ui/sidebar";
+import { SidebarSignupCard } from "../sidebar-signup-card";
 
 const DarkModeButton = dynamic(() => import("../sidebar-darkmode-button"), {
   ssr: false,
@@ -10,13 +11,16 @@ const DarkModeButton = dynamic(() => import("../sidebar-darkmode-button"), {
 
 export function NavUser() {
   return (
-    <SidebarMenu>
-      <SidebarMenuItem className="text-xs">
-        <SidebarMenuButton className="text-xs">
-          <HelpDialog />
-        </SidebarMenuButton>
-        <DarkModeButton />
-      </SidebarMenuItem>
-    </SidebarMenu>
+    <>
+      <SidebarMenu>
+        <SidebarMenuItem className="text-xs">
+          <SidebarMenuButton className="text-xs">
+            <HelpDialog />
+          </SidebarMenuButton>
+          <DarkModeButton />
+        </SidebarMenuItem>
+      </SidebarMenu>
+      <SidebarSignupCard />
+    </>
   );
 }
