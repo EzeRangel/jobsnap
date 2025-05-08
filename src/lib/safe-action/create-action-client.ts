@@ -37,6 +37,8 @@ export const actionClient = createSafeActionClient({
     //   };
     // }
 
+    // Catch Supabase Errors
+
     if (e instanceof Error) {
       return {
         error: {

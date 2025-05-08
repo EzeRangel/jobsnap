@@ -1,14 +1,14 @@
 import Link from "next/link";
-import { Button } from "./ui/button";
+import { Button } from "../ui/button";
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "./ui/card";
+} from "../ui/card";
 
-export function SidebarSignupCard() {
+export function NavItemAnon() {
   return (
     <Card className="shadow-none p-0 gap-0">
       <CardHeader className="p-4 pb-0">
@@ -25,7 +25,7 @@ export function SidebarSignupCard() {
           className="w-full shadow-none"
           size="sm"
         >
-          <Link href="/login">Create a free account</Link>
+          <Link href="/signup">Create a free account</Link>
         </Button>
       </CardContent>
     </Card>
