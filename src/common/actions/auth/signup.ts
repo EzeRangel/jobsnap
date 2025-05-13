@@ -20,10 +20,11 @@ export const signup = actionClient.schema(schema).action(
     const supabase = await createClient();
     const { error } = await supabase.auth.signUp(parsedInput);
 
-    /** Fix this */
     if (error) {
       throw error;
     }
+
+    return true;
   },
   {
     onSuccess() {

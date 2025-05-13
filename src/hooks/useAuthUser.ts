@@ -5,7 +5,7 @@ const useAuthUser = () => {
   const { data, ...rest } = useSWR<User>("/api/user");
 
   return {
-    user: data,
+    user: !!data ? data : null,
     ...rest,
   };
 };

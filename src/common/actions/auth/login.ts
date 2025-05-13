@@ -20,10 +20,11 @@ export const login = actionClient.schema(schema).action(
     const supabase = await createClient();
     const { error } = await supabase.auth.signInWithPassword(parsedInput);
 
-    /** Fix this */
     if (error) {
       throw error;
     }
+
+    return true;
   },
   {
     onSuccess() {
