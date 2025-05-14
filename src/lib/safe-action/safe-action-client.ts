@@ -117,7 +117,7 @@ export class SafeActionClient<
         return {
           error: {
             message:
-              "Error de configuración en SafeActionClient. No hay un input schema definido.",
+              "SafeActionClient config error. There's no input schema defined.",
           },
         };
       }
@@ -145,9 +145,7 @@ export class SafeActionClient<
             const parsedData = await this.validate(outputSchema, result);
 
             if (!parsedData.success) {
-              throw new Error(
-                "La data regresada no tiene un esquema correcto."
-              );
+              throw new Error("Output data has incorrect schema");
             }
           }
 
@@ -163,7 +161,7 @@ export class SafeActionClient<
           // TODO: Puede ser posible crear una clase para manejar estos errores
           return {
             error: {
-              message: "Hay errores de validación",
+              message: "Validation errors",
               // prettier-ignore
               validationErrors: validationResults.issues.reduce<Record<string, string[]>>((acc, item) => {
                 const { path, message } = item;
