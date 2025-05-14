@@ -8,28 +8,47 @@ import { Label } from "~/components/ui/label";
 import useMutation from "~/hooks/useMutation";
 import Submit from "~/components/forms/submit";
 import { signup } from "~/common/actions/auth/signup";
+import { useFormErrors } from "~/hooks/useFormErrors";
+import { useEffect } from "react";
+import { useFieldError } from "~/hooks/useFieldError";
+import { FormProvider } from "~/context/form-context";
 
-export function SignupForm({
-  className,
-  ...props
-}: React.ComponentProps<"div">) {
+export function SignupForm() {
+  return (
+    <FormProvider>
+      <Form />
+    </FormProvider>
+  );
+}
+
+function Form({ className, ...props }: React.ComponentProps<"div">) {
+  const { setErrors, clearErrors } = useFormErrors();
   const { execute } = useMutation(signup, {
     onError(error) {
       const title = error.message || "There was an error";
       let message = "An error prevented the form to be submitted";
 
       if (error.validationErrors) {
+        setErrors?.(error.validationErrors);
         const fields = Object.keys(error.validationErrors);
         const messages = fields.flatMap((field) => {
           return error?.validationErrors?.[field] ?? [];
         });
 
         message = messages.join(", ");
+      } else {
+        clearErrors?.();
       }
 
       toast.error(title, { description: message });
     },
   });
+
+  useEffect(() => {
+    clearErrors?.();
+    return () => clearErrors?.();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
@@ -46,6 +65,8 @@ export function SignupForm({
                     name="email"
                     placeholder="m@example.com"
                     required
+                    aria-invalid={!!useFieldError("email")}
+                    aria-describedby="email-error"
                   />
                 </div>
                 <div className="grid gap-3">
@@ -55,6 +76,8 @@ export function SignupForm({
                     type="password"
                     name="password"
                     required
+                    aria-invalid={!!useFieldError("password")}
+                    aria-describedby="password-error"
                   />
                 </div>
                 <div className="grid gap-3">
@@ -64,6 +87,8 @@ export function SignupForm({
                     type="password"
                     name="passwordConfirm"
                     required
+                    aria-invalid={!!useFieldError("passwordConfirm")}
+                    aria-describedby="passwordConfirm-error"
                   />
                 </div>
                 <Submit className="w-full">Sign up</Submit>
