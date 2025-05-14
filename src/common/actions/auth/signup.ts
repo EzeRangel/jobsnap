@@ -6,14 +6,30 @@ import { zfd } from "zod-form-data";
 import { actionClient } from "~/lib/safe-action/create-action-client";
 import { createClient } from "~/lib/supabase/server";
 
-const schema = zfd.formData({
-  email: zfd.text(
-    z
-      .string({ required_error: "Please type your email" })
-      .email({ message: "Type a correct email" })
-  ),
-  password: zfd.text(z.string({ required_error: "Please type a password" })),
-});
+const schema = zfd
+  .formData({
+    email: zfd.text(
+      z
+        .string({ required_error: "Please type your email" })
+        .email({ message: "Type a correct email" })
+    ),
+    password: zfd.text(
+      z
+        .string({ required_error: "Please type a password" })
+        .min(8, "Password should have at least 8 characters")
+    ),
+    passwordConfirm: zfd.text(
+      z
+        .string({
+          required_error: "Please confirm your password",
+        })
+        .min(8, "Password should have at least 8 characters")
+    ),
+  })
+  .refine((data) => data.password === data.passwordConfirm, {
+    message: "Passwords don't match",
+    path: ["passwordConfirm"],
+  });
 
 export const signup = actionClient.schema(schema).action(
   async ({ parsedInput }) => {

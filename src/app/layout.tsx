@@ -3,6 +3,7 @@ import { Inter, JetBrains_Mono, Source_Serif_4 } from "next/font/google";
 import { ThemeProvider } from "~/components/theme-provider";
 import "./globals.css";
 import AppProvider from "~/components/app-provider";
+import { Toaster } from "~/components/ui/sonner";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -36,6 +37,7 @@ export default function RootLayout({
       >
         <ThemeProvider attribute="class" defaultTheme="light">
           <AppProvider>{children}</AppProvider>
+          <Toaster richColors />
         </ThemeProvider>
       </body>
     </html>
