@@ -13,12 +13,41 @@ import { Input } from "~/components/ui/input";
 import { Label } from "~/components/ui/label";
 import useMutation from "~/hooks/useMutation";
 import { login } from "~/common/actions/auth/login";
+import { FormProvider } from "~/context/form-context";
+import { useFormErrors } from "~/hooks/useFormErrors";
+import { useFieldError } from "~/hooks/useFieldError";
+import { toast } from "sonner";
 
-export function LoginForm({
-  className,
-  ...props
-}: React.ComponentProps<"div">) {
-  const { execute } = useMutation(login);
+export function LoginForm() {
+  return (
+    <FormProvider>
+      <Form />
+    </FormProvider>
+  );
+}
+
+function Form({ className, ...props }: React.ComponentProps<"div">) {
+  const { setErrors, clearErrors } = useFormErrors();
+  const { execute } = useMutation(login, {
+    onError(error) {
+      const title = error.message || "There was an error";
+      let message = "An error prevented the form to be submitted";
+
+      if (error.validationErrors) {
+        setErrors?.(error.validationErrors);
+        const fields = Object.keys(error.validationErrors);
+        const messages = fields.flatMap((field) => {
+          return error?.validationErrors?.[field] ?? [];
+        });
+
+        message = messages.join(", ");
+      } else {
+        clearErrors?.();
+      }
+
+      toast.error(title, { description: message });
+    },
+  });
 
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
@@ -41,6 +70,8 @@ export function LoginForm({
                     name="email"
                     placeholder="m@example.com"
                     required
+                    aria-invalid={!!useFieldError("email")}
+                    aria-describedby="email-error"
                   />
                 </div>
                 <div className="grid gap-3">
@@ -58,6 +89,8 @@ export function LoginForm({
                     type="password"
                     name="password"
                     required
+                    aria-invalid={!!useFieldError("password")}
+                    aria-describedby="password-error"
                   />
                 </div>
                 <Button type="submit" className="w-full">
