@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, JetBrains_Mono, Source_Serif_4 } from "next/font/google";
 import "./globals.css";
+import { Scripts } from "~/components/scripts";
 import { ThemeProvider } from "~/components/theme-provider";
 import { SidebarInset, SidebarProvider } from "~/components/ui/sidebar";
 import { AppSidebar } from "~/components/app-sidebar";
@@ -32,6 +33,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <Scripts />
       <body
         className={`${inter.variable} ${jetbrains.variable} ${source.variable} antialiased`}
       >
