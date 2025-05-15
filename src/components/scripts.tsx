@@ -8,7 +8,6 @@ export function Scripts() {
       />
       <Script
         id="gtm-script"
-        crossOrigin="anonymous"
         strategy="afterInteractive"
         dangerouslySetInnerHTML={{
           __html: `window.dataLayer = window.dataLayer || [];
