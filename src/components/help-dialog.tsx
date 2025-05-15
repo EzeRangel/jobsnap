@@ -1,7 +1,6 @@
 "use client";
 
 import { CircleHelpIcon } from "lucide-react";
-import { Button } from "./ui/button";
 import {
   Dialog,
   DialogContent,
@@ -14,9 +13,10 @@ export default function HelpDialog() {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button size="icon" variant="ghost">
-          <CircleHelpIcon />
-        </Button>
+        <span className="flex h-full items-center gap-2">
+          <CircleHelpIcon className="size-4" />
+          Help
+        </span>
       </DialogTrigger>
       <DialogContent className="sm:max-w-2xl">
         <DialogHeader>
