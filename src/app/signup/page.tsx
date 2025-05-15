@@ -6,6 +6,13 @@ import {
 } from "lucide-react";
 import { SignupForm } from "./_components/signup-form";
 import Link from "next/link";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Create account",
+  description:
+    "Create a free account and start leveling up your career with AI Insights.",
+};
 
 export default function SignupPage() {
   return (

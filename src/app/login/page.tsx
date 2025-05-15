@@ -1,6 +1,13 @@
 import { FileSearchIcon } from "lucide-react";
+import { Metadata } from "next";
 
 import { LoginForm } from "~/components/login-form";
+
+export const metadata: Metadata = {
+  title: "Login",
+  description:
+    "Log-in with your account to level up your career with AI Insights.",
+};
 
 export default function LoginPage() {
   return (
