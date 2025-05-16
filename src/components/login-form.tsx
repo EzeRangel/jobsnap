@@ -10,13 +10,12 @@ import {
   CardTitle,
 } from "~/components/ui/card";
 import { Input } from "~/components/ui/input";
-import { Label } from "~/components/ui/label";
 import useMutation from "~/hooks/useMutation";
 import { login } from "~/common/actions/auth/login";
 import { FormProvider } from "~/context/form-context";
 import { useFormErrors } from "~/hooks/useFormErrors";
-import { useFieldError } from "~/hooks/useFieldError";
 import { toast } from "sonner";
+import { FormField } from "./forms/form-field";
 
 export function LoginForm() {
   return (
@@ -62,37 +61,39 @@ function Form({ className, ...props }: React.ComponentProps<"div">) {
           <form action={execute}>
             <div className="grid gap-6">
               <div className="grid gap-6">
-                <div className="grid gap-3">
-                  <Label htmlFor="email">Email</Label>
-                  <Input
-                    id="email"
-                    type="email"
-                    name="email"
-                    placeholder="m@example.com"
-                    required
-                    aria-invalid={!!useFieldError("email")}
-                    aria-describedby="email-error"
-                  />
-                </div>
-                <div className="grid gap-3">
-                  <div className="flex items-center">
-                    <Label htmlFor="password">Password</Label>
-                    {/* <a
-                      href="#"
-                      className="ml-auto text-sm underline-offset-4 hover:underline"
-                    >
-                      Forgot your password?
-                    </a> */}
-                  </div>
-                  <Input
-                    id="password"
-                    type="password"
-                    name="password"
-                    required
-                    aria-invalid={!!useFieldError("password")}
-                    aria-describedby="password-error"
-                  />
-                </div>
+                <FormField
+                  name="email"
+                  label="Email"
+                  className="flex flex-col gap-3"
+                >
+                  {({ fieldError }) => (
+                    <Input
+                      id="email"
+                      type="email"
+                      name="email"
+                      placeholder="m@example.com"
+                      required
+                      aria-invalid={!!fieldError?.[0]}
+                      aria-describedby="email-error"
+                    />
+                  )}
+                </FormField>
+                <FormField
+                  name="password"
+                  label="Password"
+                  className="flex flex-col gap-3"
+                >
+                  {({ fieldError }) => (
+                    <Input
+                      id="password"
+                      type="password"
+                      name="password"
+                      required
+                      aria-invalid={!!fieldError?.[0]}
+                      aria-describedby="password-error"
+                    />
+                  )}
+                </FormField>
                 <Button type="submit" className="w-full">
                   Login
                 </Button>
