@@ -22,20 +22,18 @@ export function FormField({ name, label, hint, children, className }: Props) {
   const fieldError = errors?.[name];
 
   return (
-    <div className={cn(className)}>
+    <div className={cn("space-y-3", className)}>
       {label ? <Label htmlFor={name}>{label}</Label> : null}
-      <div>
-        {children({ fieldError })}
-        {hasError ? (
-          <span className="block text-xs/6 text-destructive">
-            {errors[name][0]}
-          </span>
-        ) : hint !== undefined ? (
-          <span className="block text-xs/tight text-muted-foreground">
-            {hint}
-          </span>
-        ) : null}
-      </div>
+      <div>{children({ fieldError })}</div>
+      {hasError ? (
+        <span className="block text-xs/6 text-destructive">
+          {errors[name][0]}
+        </span>
+      ) : hint !== undefined ? (
+        <span className="block text-xs/tight text-muted-foreground">
+          {hint}
+        </span>
+      ) : null}
     </div>
   );
 }
