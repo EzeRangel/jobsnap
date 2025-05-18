@@ -1,6 +1,7 @@
 import { SafeActionClientOpts } from "~/types/SafeAction";
 // import { FetcherError } from "../fetcher/errors";
 import { SafeActionClient } from "./safe-action-client";
+import { PostgrestError } from "@supabase/supabase-js";
 
 export const DEFAULT_SERVER_ERROR_MESSAGE =
   "Ocurrió un problema al ejecutar la operación";
@@ -38,6 +39,15 @@ export const actionClient = createSafeActionClient({
     // }
 
     // Catch Supabase Errors
+    if (e instanceof PostgrestError) {
+      return {
+        error: {
+          code: e.code,
+          message: e.message,
+          details: e.details,
+        },
+      };
+    }
 
     if (e instanceof Error) {
       return {
