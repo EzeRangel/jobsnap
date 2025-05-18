@@ -1,4 +1,4 @@
-import { ChevronsUpDown, Sparkles } from "lucide-react";
+import { BadgeCheckIcon, ChevronsUpDown, Sparkles } from "lucide-react";
 import { Avatar, AvatarFallback } from "../ui/avatar";
 import {
   DropdownMenu,
@@ -12,6 +12,7 @@ import {
 import { SidebarMenuButton } from "../ui/sidebar";
 import { User } from "@supabase/supabase-js";
 import SignOut from "./sign-out";
+import Link from "next/link";
 
 interface Props {
   user: User;
@@ -57,6 +58,12 @@ export function NavItemAuth({ user }: Props) {
           <DropdownMenuItem>
             <Sparkles />
             Upgrade to Pro
+          </DropdownMenuItem>
+          <DropdownMenuItem asChild>
+            <Link href="/settings">
+              <BadgeCheckIcon />
+              Account
+            </Link>
           </DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />

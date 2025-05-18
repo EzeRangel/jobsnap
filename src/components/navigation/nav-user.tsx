@@ -23,9 +23,11 @@ export function NavUser() {
         <DarkModeButton />
       </SidebarMenuItem>
       {user ? (
-        <SidebarMenuItem>
-          <NavItemAuth user={user} />
-        </SidebarMenuItem>
+        <>
+          <SidebarMenuItem>
+            <NavItemAuth user={user} />
+          </SidebarMenuItem>
+        </>
       ) : (
         <SidebarMenuItem>
           <NavItemAnon />
