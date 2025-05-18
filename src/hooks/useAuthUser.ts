@@ -1,8 +1,8 @@
 import useSWR from "swr";
-import { User } from "@supabase/supabase-js";
+import { UserDTO } from "~/types/UserProfile";
 
 const useAuthUser = () => {
-  const { data, ...rest } = useSWR<User>("/api/user");
+  const { data, ...rest } = useSWR<UserDTO>("/api/user");
 
   return {
     user: !!data ? data : null,
