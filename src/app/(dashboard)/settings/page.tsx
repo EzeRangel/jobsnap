@@ -48,15 +48,15 @@ const ITEMS = [
 ];
 
 const getData = async () => {
-  const [userProfile] = await Promise.all([fetchUserProfile()]);
+  const [user] = await Promise.all([fetchUserProfile()]);
 
   return {
-    userProfile,
+    user,
   };
 };
 
 export default async function AccountPage() {
-  const { userProfile } = await getData();
+  const { user } = await getData();
 
   return (
     <main className="w-full">
@@ -104,7 +104,7 @@ export default async function AccountPage() {
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <ProfileForm profile={userProfile} />
+              <ProfileForm user={user} />
             </CardContent>
           </Card>
         </div>

@@ -8,10 +8,10 @@ import { FormProvider } from "~/context/form-context";
 import { updateProfile } from "~/data/user/actions";
 import { useFormErrors } from "~/hooks/useFormErrors";
 import useMutation from "~/hooks/useMutation";
-import { UserProfile } from "~/types/UserProfile";
+import { UserDTO } from "~/types/UserProfile";
 
 interface Props {
-  profile: UserProfile;
+  user: UserDTO;
 }
 
 export default function ProfileForm(props: Props) {
@@ -22,7 +22,7 @@ export default function ProfileForm(props: Props) {
   );
 }
 
-function Form({ profile }: Props) {
+function Form({ user }: Props) {
   const { setErrors } = useFormErrors();
   const { execute } = useMutation(updateProfile, {
     onError(error) {
@@ -44,7 +44,7 @@ function Form({ profile }: Props) {
           <Input
             id="first_name"
             name="first_name"
-            defaultValue={profile.first_name}
+            defaultValue={user.profile.first_name}
             aria-invalid={!!fieldError?.[0]}
             aria-describedby="first-name-error"
           />
@@ -55,7 +55,7 @@ function Form({ profile }: Props) {
           <Input
             id="last_name"
             name="last_name"
-            defaultValue={profile.last_name}
+            defaultValue={user.profile.last_name}
             aria-invalid={!!fieldError?.[0]}
             aria-describedby="last-name-error"
           />
@@ -66,7 +66,16 @@ function Form({ profile }: Props) {
         name="email"
         hint="You can manage verified email addresses in your email settings."
       >
-        {() => <Input id="email" name="email" type="email" />}
+        {({ fieldError }) => (
+          <Input
+            id="email"
+            name="email"
+            type="email"
+            defaultValue={user.email}
+            aria-invalid={!!fieldError?.[0]}
+            aria-describedby="email-error"
+          />
+        )}
       </FormField>
       <div>
         <Submit>Update profile</Submit>
