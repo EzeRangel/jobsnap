@@ -10,15 +10,18 @@ import {
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
 import { SidebarMenuButton } from "../ui/sidebar";
-import { User } from "@supabase/supabase-js";
 import SignOut from "./sign-out";
 import Link from "next/link";
+import { UserDTO } from "~/types/UserProfile";
+import getInitials from "~/lib/get-initials";
 
 interface Props {
-  user: User;
+  user: UserDTO;
 }
 
 export function NavItemAuth({ user }: Props) {
+  const { profile } = user;
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -27,10 +30,18 @@ export function NavItemAuth({ user }: Props) {
           className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
         >
           <Avatar className="h-8 w-8 rounded-lg">
-            <AvatarFallback className="rounded-lg">ER</AvatarFallback>
+            <AvatarFallback className="rounded-lg">
+              {profile?.first_name
+                ? getInitials(`${profile.first_name} ${profile.last_name}`)
+                : getInitials(user.email || "")}
+            </AvatarFallback>
           </Avatar>
           <div className="grid flex-1 text-left text-sm leading-tight">
-            {/* <span className="truncate font-semibold">{user.name}</span> */}
+            {user.profile?.first_name ? (
+              <span className="truncate font-semibold">
+                {`${user.profile.first_name} ${user.profile.last_name}`}
+              </span>
+            ) : null}
             <span className="truncate text-xs">{user.email}</span>
           </div>
           <ChevronsUpDown className="ml-auto size-4" />
@@ -45,10 +56,18 @@ export function NavItemAuth({ user }: Props) {
         <DropdownMenuLabel className="p-0 font-normal">
           <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
             <Avatar className="h-8 w-8 rounded-lg">
-              <AvatarFallback className="rounded-lg">ER</AvatarFallback>
+              <AvatarFallback className="rounded-lg">
+                {profile?.first_name
+                  ? getInitials(`${profile.first_name} ${profile.last_name}`)
+                  : getInitials(user.email || "")}
+              </AvatarFallback>
             </Avatar>
             <div className="grid flex-1 text-left text-sm leading-tight">
-              {/* <span className="truncate font-semibold">{user.name}</span> */}
+              {user.profile?.first_name ? (
+                <span className="truncate font-semibold">
+                  {`${user.profile.first_name} ${user.profile.last_name}`}
+                </span>
+              ) : null}
               <span className="truncate text-xs">{user.email}</span>
             </div>
           </div>

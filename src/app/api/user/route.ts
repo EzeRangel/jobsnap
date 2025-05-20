@@ -1,7 +1,6 @@
 import { NextResponse } from "next/server";
 import { getUserDTO } from "~/data/user/dto";
 import { createClient } from "~/lib/supabase/server";
-import { UserProfile } from "~/types/UserProfile";
 
 export async function GET() {
   const supabase = await createClient();
@@ -15,8 +14,7 @@ export async function GET() {
   const { data: profile, error: err } = await supabase
     .from("UsersProfile")
     .select("*")
-    .single()
-    .overrideTypes<UserProfile, { merge: false }>();
+    .single();
 
   const user = getUserDTO(data.user, profile!);
 
