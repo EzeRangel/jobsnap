@@ -13,7 +13,7 @@ export default function SignOut() {
   const handleClick = () => {
     startTransition(async () => {
       await signOut();
-      await mutate(undefined, false);
+      await mutate();
     });
   };
 
