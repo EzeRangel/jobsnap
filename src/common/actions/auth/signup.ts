@@ -34,10 +34,16 @@ const schema = zfd
 export const signup = actionClient.schema(schema).action(
   async ({ parsedInput }) => {
     const supabase = await createClient();
-    const { error } = await supabase.auth.signUp(parsedInput);
+    const { data, error } = await supabase.auth.signUp(parsedInput);
 
     if (error) {
       throw error;
+    }
+
+    if (data.user) {
+      await supabase
+        .from("UsersProfile")
+        .insert({ user_id: data.user.id, first_name: null, last_name: null });
     }
 
     return true;
