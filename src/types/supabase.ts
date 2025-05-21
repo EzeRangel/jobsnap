@@ -34,6 +34,239 @@ export type Database = {
   }
   public: {
     Tables: {
+      CVS: {
+        Row: {
+          created_at: string
+          embedding: number[] | null
+          file_size: number | null
+          file_type: string | null
+          filename: string | null
+          id: number
+          is_active: boolean
+          parsed_data: Json | null
+          raw_file_url: string | null
+          updated_at: string
+          user_id: string
+          version: number | null
+        }
+        Insert: {
+          created_at?: string
+          embedding?: number[] | null
+          file_size?: number | null
+          file_type?: string | null
+          filename?: string | null
+          id?: number
+          is_active?: boolean
+          parsed_data?: Json | null
+          raw_file_url?: string | null
+          updated_at?: string
+          user_id?: string
+          version?: number | null
+        }
+        Update: {
+          created_at?: string
+          embedding?: number[] | null
+          file_size?: number | null
+          file_type?: string | null
+          filename?: string | null
+          id?: number
+          is_active?: boolean
+          parsed_data?: Json | null
+          raw_file_url?: string | null
+          updated_at?: string
+          user_id?: string
+          version?: number | null
+        }
+        Relationships: []
+      }
+      JobAnalyses: {
+        Row: {
+          ai_model_version: string | null
+          ai_prompt: string | null
+          analysis_date: string
+          created_at: string
+          cv_id: number | null
+          education_match: Json
+          experience_match: Json
+          id: number
+          is_archived: boolean
+          job_posting_id: number
+          keyword_suggestions: Json | null
+          match_details: Json
+          match_score: number
+          notes: string | null
+          priority_areas: string[]
+          recommendations: Json
+          skills_match: Json
+          updated_at: string | null
+          user_id: string | null
+        }
+        Insert: {
+          ai_model_version?: string | null
+          ai_prompt?: string | null
+          analysis_date?: string
+          created_at?: string
+          cv_id?: number | null
+          education_match?: Json
+          experience_match?: Json
+          id?: number
+          is_archived?: boolean
+          job_posting_id: number
+          keyword_suggestions?: Json | null
+          match_details?: Json
+          match_score: number
+          notes?: string | null
+          priority_areas: string[]
+          recommendations?: Json
+          skills_match?: Json
+          updated_at?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          ai_model_version?: string | null
+          ai_prompt?: string | null
+          analysis_date?: string
+          created_at?: string
+          cv_id?: number | null
+          education_match?: Json
+          experience_match?: Json
+          id?: number
+          is_archived?: boolean
+          job_posting_id?: number
+          keyword_suggestions?: Json | null
+          match_details?: Json
+          match_score?: number
+          notes?: string | null
+          priority_areas?: string[]
+          recommendations?: Json
+          skills_match?: Json
+          updated_at?: string | null
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "JobAnalyses_cv_id_fkey"
+            columns: ["cv_id"]
+            isOneToOne: false
+            referencedRelation: "CVS"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "JobAnalyses_job_posting_id_fkey"
+            columns: ["job_posting_id"]
+            isOneToOne: false
+            referencedRelation: "JobPostings"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      JobCategories: {
+        Row: {
+          created_at: string
+          description: string | null
+          id: number
+          keywords: string[] | null
+          name: string
+          updated_at: string | null
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          id?: number
+          keywords?: string[] | null
+          name: string
+          updated_at?: string | null
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          id?: number
+          keywords?: string[] | null
+          name?: string
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
+      JobPostings: {
+        Row: {
+          category_id: number | null
+          company_name: string | null
+          created_at: string
+          id: number
+          job_description: string
+          job_location: string | null
+          job_requirements: Json | null
+          job_title: string
+          job_type: string | null
+          salary: string | null
+          source_url: string | null
+        }
+        Insert: {
+          category_id?: number | null
+          company_name?: string | null
+          created_at?: string
+          id?: number
+          job_description: string
+          job_location?: string | null
+          job_requirements?: Json | null
+          job_title: string
+          job_type?: string | null
+          salary?: string | null
+          source_url?: string | null
+        }
+        Update: {
+          category_id?: number | null
+          company_name?: string | null
+          created_at?: string
+          id?: number
+          job_description?: string
+          job_location?: string | null
+          job_requirements?: Json | null
+          job_title?: string
+          job_type?: string | null
+          salary?: string | null
+          source_url?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "JobPostings_category_id_fkey"
+            columns: ["category_id"]
+            isOneToOne: false
+            referencedRelation: "JobCategories"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      TrendingSkills: {
+        Row: {
+          category: string
+          count: number
+          created_at: string
+          id: number
+          period_end: string | null
+          period_start: string | null
+          skill: string
+        }
+        Insert: {
+          category: string
+          count?: number
+          created_at?: string
+          id?: number
+          period_end?: string | null
+          period_start?: string | null
+          skill: string
+        }
+        Update: {
+          category?: string
+          count?: number
+          created_at?: string
+          id?: number
+          period_end?: string | null
+          period_start?: string | null
+          skill?: string
+        }
+        Relationships: []
+      }
       UsersProfile: {
         Row: {
           created_at: string

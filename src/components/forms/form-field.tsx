@@ -22,7 +22,7 @@ export function FormField({ name, label, hint, children, className }: Props) {
   const fieldError = errors?.[name];
 
   return (
-    <div className={cn("space-y-3", className)}>
+    <div className={cn("space-y-2", className)}>
       {label ? <Label htmlFor={name}>{label}</Label> : null}
       <div>{children({ fieldError })}</div>
       {hasError ? (

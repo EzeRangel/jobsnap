@@ -1,10 +1,19 @@
 "use client";
 
-import { BookPlusIcon, FileSearchIcon, TextSearchIcon } from "lucide-react";
+import {
+  BookPlusIcon,
+  FileSearchIcon,
+  FileStackIcon,
+  SquareKanbanIcon,
+  TextSearchIcon,
+} from "lucide-react";
 import {
   Sidebar,
   SidebarContent,
   SidebarFooter,
+  SidebarGroup,
+  SidebarGroupContent,
+  SidebarGroupLabel,
   SidebarHeader,
   SidebarMenu,
   SidebarMenuButton,
@@ -28,6 +37,27 @@ const APPLICATION = [
   },
 ];
 
+const USER_NAVIGATION = {
+  dashboard: [
+    {
+      title: "Dashboard",
+      href: "#",
+      items: [
+        {
+          title: "Resume Manager",
+          href: "/u/resume-manager",
+          icon: FileStackIcon,
+        },
+        {
+          title: "Job Tracking",
+          href: "/u/job-tracking",
+          icon: SquareKanbanIcon,
+        },
+      ],
+    },
+  ],
+};
+
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
     <Sidebar collapsible="offcanvas" {...props}>
@@ -49,6 +79,23 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       </SidebarHeader>
       <SidebarContent>
         <NavMain menu={APPLICATION} />
+        {USER_NAVIGATION.dashboard.map((item) => (
+          <SidebarGroup key={item.title}>
+            <SidebarGroupLabel>{item.title}</SidebarGroupLabel>
+            <SidebarGroupContent>
+              <SidebarMenu>
+                {item.items.map((navItem) => (
+                  <SidebarMenuItem key={navItem.title}>
+                    <SidebarMenuButton>
+                      {navItem?.icon ? <navItem.icon /> : null}
+                      {navItem.title}
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                ))}
+              </SidebarMenu>
+            </SidebarGroupContent>
+          </SidebarGroup>
+        ))}
       </SidebarContent>
       <SidebarFooter>
         <NavUser />
