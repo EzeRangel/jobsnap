@@ -1,4 +1,6 @@
+import { redirect } from "next/navigation";
 import { ReactNode } from "react";
+import { getUser } from "~/common/actions/auth/user";
 import { SiteHeader } from "~/components/site-header";
 
 export default async function UserDashboardLayout({
@@ -6,6 +8,12 @@ export default async function UserDashboardLayout({
 }: {
   children: ReactNode;
 }) {
+  const user = await getUser();
+
+  if (!user) {
+    redirect("/");
+  }
+
   return (
     <main className="w-full">
       <SiteHeader title="Dashboard" />
