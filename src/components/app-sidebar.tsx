@@ -21,6 +21,7 @@ import {
 } from "./ui/sidebar";
 import { NavMain } from "./navigation/nav-main";
 import { NavUser } from "./navigation/nav-user";
+import Link from "next/link";
 
 const APPLICATION = [
   {
@@ -86,9 +87,11 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
               <SidebarMenu>
                 {item.items.map((navItem) => (
                   <SidebarMenuItem key={navItem.title}>
-                    <SidebarMenuButton>
-                      {navItem?.icon ? <navItem.icon /> : null}
-                      {navItem.title}
+                    <SidebarMenuButton asChild>
+                      <Link href={navItem.href}>
+                        {navItem?.icon ? <navItem.icon /> : null}
+                        {navItem.title}
+                      </Link>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                 ))}
