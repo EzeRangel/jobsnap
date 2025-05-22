@@ -56,9 +56,11 @@ function Form() {
     },
   });
 
-  const handleUpload = async (file: File) => {
-    if (user) {
+  const handleUpload = async (files: File[]) => {
+    if (user && files.length >= 1) {
       const supabase = createClient();
+      const file = files[0];
+
       const { data, error } = await supabase.storage
         .from("user-cvs")
         .upload(`/temp/${user?.id}/${file.name}`, file);

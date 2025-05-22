@@ -5,6 +5,7 @@ import { useDropzone } from "react-dropzone";
 import { UploadIcon, Trash2 } from "lucide-react";
 import { cn } from "~/lib/utils";
 import { Button } from "../ui/button";
+import { z, ZodError } from "zod";
 
 /**
  * A React component for uploading files. Supports single and multiple file uploads with validation.
@@ -22,6 +23,18 @@ import { Button } from "../ui/button";
  * @returns {ReactElement} The component element
  */
 
+interface Props {
+  layout?: "vertical" | "horizontal";
+  uploadMode?: "single" | "multi";
+  defaultText?: string;
+  otherText?: string;
+  maxSize?: number;
+  acceptedFileTypes?: Record<string, string[]>;
+  zodSchema?: z.Schema;
+  errors?: string | string[];
+  onFilesUploaded: (files: File[]) => Promise<void>;
+}
+
 const FileUpload = ({
   layout = "vertical",
   uploadMode = "single",
@@ -38,9 +51,9 @@ const FileUpload = ({
   onFilesUploaded,
   zodSchema,
   errors: externalErrors,
-}) => {
-  const [files, setFiles] = useState([]);
-  const [internalErrors, setInternalErrors] = useState(null);
+}: Props) => {
+  const [files, setFiles] = useState<File[]>([]);
+  const [internalErrors, setInternalErrors] = useState<string | null>(null);
 
   /**
    * Validates a file using the provided Zod schema.
@@ -51,7 +64,7 @@ const FileUpload = ({
    * @param {File} file The file to validate
    * @returns {string|null} The error message if the file is invalid, or null if it is valid
    */
-  const validateFile = (file) => {
+  const validateFile = (file: File) => {
     if (!file) {
       return "No file selected";
     }
@@ -62,7 +75,12 @@ const FileUpload = ({
         return null;
       } catch (error) {
         console.log("Validation error:", error);
-        return error.errors[0]?.message || "Invalid file";
+
+        if (error instanceof ZodError) {
+          return error.errors[0]?.message;
+        }
+
+        return "Invalid file";
       }
     }
 
@@ -79,7 +97,7 @@ const FileUpload = ({
    * @param {File[]} acceptedFiles The files dropped into the component
    */
   const onDrop = useCallback(
-    (acceptedFiles) => {
+    (acceptedFiles: File[]) => {
       if (acceptedFiles.length === 0) {
         setInternalErrors("No valid files were dropped");
         return;
@@ -97,7 +115,7 @@ const FileUpload = ({
 
         if (!validationError) {
           setFiles(newFiles.slice(0, 1));
-          onFilesUploaded(newFiles[0]);
+          onFilesUploaded(newFiles);
           setInternalErrors(null);
         } else {
           setInternalErrors(validationError);
@@ -115,6 +133,7 @@ const FileUpload = ({
         }
       }
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [uploadMode, onFilesUploaded, zodSchema]
   );
 
@@ -130,10 +149,10 @@ const FileUpload = ({
    * Removes a file from the list of selected files.
    * @param {File} file - The file to remove
    */
-  const removeFile = (file) => {
+  const removeFile = (file: File) => {
     const newFiles = files.filter((f) => f !== file);
     setFiles(newFiles);
-    onFilesUploaded(uploadMode === "single" ? null : newFiles);
+    onFilesUploaded(uploadMode === "single" ? [] : newFiles);
     setInternalErrors(null);
   };
 
@@ -189,7 +208,7 @@ const FileUpload = ({
           <div className="flex items-center space-x-2">
             <div className="w-8 h-8 bg-gray-300 rounded flex items-center justify-center p-5">
               <span className="text-xs font-medium">
-                {file.name.split(".").pop().toUpperCase()}
+                {file?.name?.split(".")?.pop()?.toUpperCase() ?? ""}
               </span>
             </div>
 
