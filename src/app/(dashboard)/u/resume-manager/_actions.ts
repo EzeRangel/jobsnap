@@ -40,3 +40,24 @@ export const uploadResume = actionClient
 
     return { message: "Your CV has been saved correctly" };
   });
+
+export const getUserCVs = actionClient.actionResult(async () => {
+  const supabase = await createClient();
+
+  const {
+    data: { user },
+    error: userError,
+  } = await supabase.auth.getUser();
+  if (userError || !user) throw new Error("User not auth");
+
+  const { data, error } = await supabase.storage
+    .from("user-cvs")
+    .list(`users/${user.id}`, {
+      limit: 100,
+      offset: 0,
+    });
+
+  if (error) throw error;
+
+  return data;
+});

@@ -7,8 +7,15 @@ import {
   CardTitle,
 } from "~/components/ui/card";
 import EmptyTable from "./empty-table";
+import { FileObject } from "~/types/Storage";
+import { DataTable } from "./data-table";
+import { columns } from "./columns";
 
-export async function UploadsTable() {
+interface Props {
+  data: FileObject[];
+}
+
+export async function UploadsTable({ data }: Props) {
   return (
     <section className="grid grid-cols-12 gap-6">
       <aside className="col-span-12">
@@ -29,7 +36,11 @@ export async function UploadsTable() {
           </div>
         </CardHeader>
         <CardContent>
-          <EmptyTable />
+          {!data || data.length < 1 ? (
+            <EmptyTable />
+          ) : (
+            <DataTable columns={columns} data={data} />
+          )}
         </CardContent>
       </Card>
     </section>
