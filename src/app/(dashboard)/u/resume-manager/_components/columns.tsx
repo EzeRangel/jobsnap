@@ -4,6 +4,7 @@ import { ColumnDef } from "@tanstack/react-table";
 import { FileIcon } from "lucide-react";
 import NoSsr from "~/components/no-ssr";
 import { FileObject } from "~/types/Storage";
+import { DataTableActions } from "./data-table-actions";
 
 export const columns: ColumnDef<FileObject>[] = [
   {
@@ -47,5 +48,9 @@ export const columns: ColumnDef<FileObject>[] = [
         </div>
       );
     },
+  },
+  {
+    id: "actions",
+    cell: ({ row }) => <DataTableActions row={row.original} />,
   },
 ];

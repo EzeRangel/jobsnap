@@ -3,6 +3,7 @@
 import { actionClient } from "~/lib/safe-action/create-action-client";
 import { uploadResumeSchema } from "./_schema";
 import { createClient } from "~/lib/supabase/server";
+import { getUser } from "~/common/actions/auth/user";
 
 export const uploadResume = actionClient
   .schema(uploadResumeSchema)
@@ -61,3 +62,24 @@ export const getUserCVs = actionClient.actionResult(async () => {
 
   return data;
 });
+
+export const getDownloadURL = async (filename: string) => {
+  return actionClient.actionResult(async () => {
+    const user = await getUser();
+
+    if (!user) {
+      throw new Error("User is not authenticated");
+    }
+
+    const supabase = await createClient();
+    const path = `users/${user.id}/${filename}`;
+
+    const { data, error } = await supabase.storage
+      .from("user-cvs")
+      .createSignedUrl(path, 60);
+    if (error || !data?.signedUrl)
+      throw error || new Error("Can not generate signed url");
+
+    return data.signedUrl;
+  })();
+};
